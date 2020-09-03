@@ -29,6 +29,7 @@
     ```
    $ sudo systemctl start docker
    $ sudo systemctl enable docker
+   admin88
    ```
 3. Clone project
     - Git  `git clone https://github.com/KilluaChen/elk.git`
@@ -36,17 +37,17 @@
     
 1. Setting ES Account
     ```
+    $ docker network create same_net
+    $ chmod -R 777 data/
+    $ chmod -R 777 logs/
     $ docker-compose up es1
     $ docker exec -it es1 /bin/bash
     $ elasticsearch-setup-passwords interactive
     ```
 5. Command
     ```bash
-   # Run
-   $ docker-compose up
-
-   # Start single service
-   $ docker-compose up es1
+   docker network create same_net
+   docker-compose up
    
    # Run Daemon
    $ docker-compose up -d
