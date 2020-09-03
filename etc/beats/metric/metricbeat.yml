@@ -9,8 +9,8 @@ processors:
 
 output.elasticsearch:
   hosts: ['es1:9200']
-  username: '${ELASTICSEARCH_USERNAME:}'
-  password: '${ELASTICSEARCH_PASSWORD:}'
+  username: 'elastic'
+  password: 'admin888'
 
 setup.kibana:
   host: "kibana:5601"

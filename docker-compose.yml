@@ -38,7 +38,8 @@ services:
     image: elastic/filebeat:${ES_VERSION}
     container_name: filebeat
     volumes:
-      - /usr/local/www/baitu/docker/logs:/usr/share/nginx/logs:ro
+      - /var/log/nginx/error:/usr/share/nginx/logs/error:ro
+      - /var/log/nginx/access:/usr/share/nginx/logs/access:ro
       - ./etc/beats/file/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
       - ./etc/beats/file/modules.d:/usr/share/filebeat/modules.d:ro
     networks:
