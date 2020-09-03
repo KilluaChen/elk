@@ -2,11 +2,17 @@
 
 1. Install Dcoker
     - Docker
-        - centos
+        - centos 7
             ```bash
             $ sudo yum install -y yum-utils
             $ sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
             $ sudo yum install docker-ce docker-ce-cli containerd.io
+            ```
+        - centos 8
+            ```bash
+            $ sudo yum install -y yum-utils
+            $ yum install -y https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/edge/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm
+            $ sudo yum -y install docker-ce docker-ce-cli
             ```
         - [Other systems](https://docs.docker.com/engine/install/)
     - Docker-compose
