@@ -1,4 +1,4 @@
-###  Docker-compose  Nginx + PHP + Mysql + Redis + Composer
+###  ELK
 
 1. Install Dcoker
     - Docker
@@ -33,53 +33,50 @@
    $ sudo systemctl enable docker
    ```
 3. Clone project
-    - Git  `git clone https://github.com/KilluaChen/docker-nginx-php-mysql.git`
-    - [Download](https://github.com/KilluaChen/docker-nginx-php-mysql/archive/master.zip)
-1. Create log dir
+    - Git  `git clone https://github.com/KilluaChen/elk.git`
+    - [Download](https://github.com/KilluaChen/elk/archive/master.zip)
+    
+1. Setting ES Account
     ```
-    $ cd docker-nginx-php-mysql
-    $ mkdir -p logs/error & mkdir -p logs/access
+    $ docker-compose up es1
+    $ docker exec -it es1 /bin/bash
+    $ elasticsearch-setup-passwords interactive
     ```
-4. Append to `/etc/hosts` file (Optional)
-    ```bash
-     # Docker
-     127.0.0.1       localhost
-     127.0.0.1       test.pma.com
-     ```
 5. Command
     ```bash
    # Run
    $ docker-compose up
 
    # Start single service
-   $ docker-compose up mysql
+   $ docker-compose up es1
    
    # Run Daemon
    $ docker-compose up -d
    
    # Stop
-   $ docker-compose stop
+   $ docker-compose stop˙
    
    # Delete
    $ docker-compose down
    ```
-6. Visit
-    - Localhost [http://localhost](http://localhost/index.html)
-    - PhpMyAdmin [http://test.pma.com](http://test.pma.com)
-7.  multi-version PHP
-    - 在Docker-compose 里面添加多个php-fpm服务,并定义成不同service 名称
-    - 在nginx 配置中,修改`fastcgi_pass`.监听不同的service即可完成多版本PHP
 1. zsh alias
     ```bash
     alias dis="docker images"
     alias dps="docker ps"
-    alias ds="/home/data/docker-nginx-php-mysql && docker-compose"
+    alias dc="docker-compose"
     ```
 7. PS
-    - 确保`80`,`3306`,`6479`端口没有被占用
     - 下载`Docker 镜像`过慢可以使用阿里的[容器镜像服务](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) 
-    - 如果挂载的目录没有权限,需要添加file sharing 
-        > You can configure shared paths from Docker -> Preferences... -> File Sharing.
+        ```
+       sudo mkdir -p /etc/docker
+       sudo tee /etc/docker/daemon.json <<-'EOF'
+       {
+         "registry-mirrors": ["https://c9uxfqpy.mirror.aliyuncs.com"]
+       }
+       EOF
+       sudo systemctl daemon-reload
+       sudo systemctl restart docker
+       ```
     - 更多设置参考 [https://github.com/nanoninja/docker-nginx-php-mysql](https://github.com/nanoninja/docker-nginx-php-mysql)
     
      
