@@ -1,0 +1,14 @@
+node:
+  name: es01
+  master: true
+discovery:
+  type: single-node # 配置单节点启动
+#  seed_hosts: es02,es03 #发现别的主机
+cluster:
+  name: es-docker-cluster
+  #  initial_master_nodes: # 集群列表
+  #    - es01
+  #    - es02
+  #    - es03
+network:
+  host: 0.0.0.0

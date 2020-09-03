@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  es1:
+    image: elasticsearch:${ES_VERSION}
+    container_name: es01
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/es01:/usr/share/elasticsearch/data
+      - ./logs/es01/:/usr/share/elasticsearch/logs/
+      - ./etc/es/es01.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./etc/plugins:/usr/share/elasticsearch/plugins:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - same_net
+  kibana:
+    image: kibana:${ES_VERSION}
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    volumes:
+      - ./etc/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    networks:
+      - same_net
+  metricbeat:
+    image: elastic/metricbeat:${ES_VERSION}
+    container_name: metricbeat
+    volumes:
+      - ./etc/beats/metric/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - ./etc/beats/metric/modules.d:/usr/share/metricbeat/modules.d:ro
+    networks:
+      - same_net
+  filebeat:
+    image: elastic/filebeat:${ES_VERSION}
+    container_name: filebeat
+    volumes:
+      - /usr/local/www/baitu/docker/logs:/usr/share/nginx/logs:ro
+      - ./etc/beats/file/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./etc/beats/file/modules.d:/usr/share/filebeat/modules.d:ro
+    networks:
+      - same_net
+networks:
+  same_net:
+    external:
+      name: same_net
