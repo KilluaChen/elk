@@ -8,11 +8,9 @@
             $ sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
             $ sudo yum install docker-ce docker-ce-cli containerd.io
             ```
-        - centos 8
+        - centos 8 缺少 `containerd.io` 时执行
             ```bash
-            $ sudo yum install -y yum-utils
             $ yum install -y https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/edge/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm
-            $ sudo yum -y install docker-ce docker-ce-cli
             ```
         - [Other systems](https://docs.docker.com/engine/install/)
     - Docker-compose
@@ -66,6 +64,10 @@
     alias dc="docker-compose"
     ```
 7. PS
+    - 查看宿主机ip 让容器内访问
+         ```
+         ip addr show docker0
+         ```
     - 下载`Docker 镜像`过慢可以使用阿里的[容器镜像服务](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors) 
         ```
        sudo mkdir -p /etc/docker
